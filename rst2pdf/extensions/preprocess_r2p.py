@@ -212,10 +212,12 @@ class Preprocess(object):
 
         for prefix in ('', os.path.dirname(self.sourcef.name)):
             try:
-                f = open(os.path.join(prefix, fname), 'rb')
+                dirname = os.path.abspath(os.path.join(prefix, fname))
+                f = open(dirname, 'rb')
             except IOError:
                 continue
             else:
+                fname = dirname or fname
                 break
         else:
             log.error("Could not find include file %s", fname)
